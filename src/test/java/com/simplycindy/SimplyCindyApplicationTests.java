@@ -1,4 +1,4 @@
-package com.simplycindy.simplycindy;
+package com.simplycindy;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
