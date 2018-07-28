@@ -14,6 +14,11 @@
         <span th:errors="*{name}"></span>
     </div>
     <div>
+        <label th:for="price">Price</label>
+        <input th:field="*{price}"/>
+        <span th:errors="*{price}"></span>
+    </div>
+    <div>
         <label th:for="description">Description</label>
         <input th:field="*{description}"/>
         <span th:errors="*{description}"></span>

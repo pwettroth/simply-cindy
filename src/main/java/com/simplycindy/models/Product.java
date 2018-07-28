@@ -17,14 +17,19 @@ public class Product {
     @NotNull
     private String name;
 
+    @NotNull
+    private Float price;
+
     private String description;
 
     @ManyToOne
     private Category category;
 
-    public Product(String productName, String productDescription) {
+    public Product(String name, Float price, String description, Category category) {
         this.name = name;
+        this.price = price;
         this.description = description;
+        this.category = category;
     }
 
     public Product() {
@@ -40,6 +45,14 @@ public class Product {
 
     public void setName(String productName) {
         this.name = productName;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     public String getDescription() {

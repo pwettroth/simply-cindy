@@ -6,14 +6,52 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
+<nav>
+    <a href="/product/add">Add Product</a>
+    <a href="/product/remove">Remove Product</a>
+    <a href="/category">Categories</a>
+</nav>
 
 <p th:unless="${products} and ${products.size()}">No items</p>
 
-<tr th:each="product : ${products}">
-    <td th:text="${product.name}"></td>
-    <td th:text="${product.description}"></td>
-    <td th:text="${product.category.name}"></td>
-</tr>
+<div class='table-responsive'>
+    <table id="productTable" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#
+                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                </th>
+                <th scope="col">Name
+                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                </th>
+                <th scope="col">Price
+                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                </th>
+                <th scope="col">Description
+                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                </th>
+                <th scope="col">Category
+                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.category.name}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function () {
+            $('#productTable').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+</div>
 
 </body>
 </html>

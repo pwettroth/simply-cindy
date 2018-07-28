@@ -38,7 +38,6 @@ public class ProductController {
         model.addAttribute("title", "Add Product");
         model.addAttribute(new Product());
         model.addAttribute("categories", categoryDao.findAll());
-
         return "product/add";
     }
 

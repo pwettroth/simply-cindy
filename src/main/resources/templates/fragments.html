@@ -2,19 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:fragmemt="head">
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
     <title th:text="${title}">Simply Cindy</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"/>
 
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <script type="text/javascript" th:src="@{/js/script.js}"></script>
 
+
 </head>
-<body>
+<body class="deep-purple-skin">
 
 <nav th:fragment="navigation">
-    <a href="/product">List</a>
-    <a href="/product/add">Add Product</a>
-    <a href="/product/remove">Remove Product</a>
-    <a href="/category">Categories</a>
+    <a href="/product">List Products</a>
 </nav>
 
 </body>
