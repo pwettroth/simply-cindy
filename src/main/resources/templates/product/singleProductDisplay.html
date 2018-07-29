@@ -3,11 +3,15 @@
 <head th:replace="fragments :: head"></head>
 <body>
 
-<h1 th:text="${title}">Default Title</h1>
-
 <nav th:replace="fragments :: navigation"></nav>
 
-<h2 th:text="'Welcome, ' + ${user.username} + '!'"></h2>
+<h1 th:text="${name}"></h1>
+
+<img th:src="${image}" />
+
+<p th:utext="'$' + ${#numbers.formatDecimal(price, 0,'DEFAULT', 2, 'DEFAULT')} + '&lt;br /&gt;' + ${description}"></p>
+
+
 
 </body>
 </html>

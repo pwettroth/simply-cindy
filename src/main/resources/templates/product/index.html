@@ -10,6 +10,7 @@
     <a href="/product/add">Add Product</a>
     <a href="/product/remove">Remove Product</a>
     <a href="/category">Categories</a>
+    <a href="/login">Login</a>
 </nav>
 
 <p th:unless="${products} and ${products.size()}">No items</p>
@@ -36,7 +37,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="product : ${products}">
+            <!--onclick brought to you by: https://stackoverflow.com/questions/27484706/thymeleaf-clickable-row-->
+            <tr th:each="product : ${products}" style="cursor:pointer"
+                th:onclick="'javascript:rowClicked(\'product/aProduct?productId=' + ${product.id} + '\');'">
                 <td th:text="${product.id}"></td>
                 <td th:text="${product.name}"></td>
                 <td th:text="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')}"></td>
@@ -50,6 +53,10 @@
             $('#productTable').DataTable();
             $('.dataTables_length').addClass('bs-select');
         });
+
+        function rowClicked(value) {
+        location.href = value;
+    }
     </script>
 </div>
 

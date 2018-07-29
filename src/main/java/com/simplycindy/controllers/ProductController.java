@@ -73,4 +73,25 @@ public class ProductController {
             }
             return "redirect:";
         }
+
+    @RequestMapping(value = "display")
+    public String displayProducts(Model model) {
+        model.addAttribute("title", "Products");
+        model.addAttribute("products", productDao.findAll());
+        return "product/display";
     }
+
+    @RequestMapping(value = "aProduct", method = RequestMethod.GET)
+    public String displaySingleProduct(@RequestParam int productId,
+                                       Model model) {
+
+        Product aProduct = productDao.findOne(productId);
+        model.addAttribute("title", aProduct.getName());
+        model.addAttribute("name", aProduct.getName());
+        model.addAttribute("description", aProduct.getDescription());
+        model.addAttribute("image", aProduct.getImage());
+        model.addAttribute("price", aProduct.getPrice());
+
+        return "product/singleProductDisplay";
+    }
+}

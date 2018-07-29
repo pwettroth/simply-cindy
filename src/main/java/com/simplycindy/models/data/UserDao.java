@@ -8,4 +8,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface UserDao extends CrudRepository<User, String> {
+
+    default User findByUsername(String username){
+        Iterable<User> users = findAll();
+
+        User actualUser = null;
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                actualUser = user;
+                break;
+            }
+        }
+        return actualUser;
+    }
 }

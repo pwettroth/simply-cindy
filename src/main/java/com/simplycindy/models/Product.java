@@ -25,11 +25,14 @@ public class Product {
     @ManyToOne
     private Category category;
 
-    public Product(String name, Float price, String description, Category category) {
+    private String image;
+
+    public Product(String name, Float price, String description, Category category, String image) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.category = category;
+        this.image = image;
     }
 
     public Product() {
@@ -69,5 +72,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

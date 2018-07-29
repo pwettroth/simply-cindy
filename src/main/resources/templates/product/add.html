@@ -24,12 +24,17 @@
         <span th:errors="*{description}"></span>
     </div>
     <div>
-        <label th:for="type">Category</label>
+        <label th:for="categoryId">Category</label>
         <select name="categoryId">
             <option th:each="category : ${categories}"
                     th:text="${category.name}"
                     th:value="${category.id}"></option>
         </select>
+    </div>
+    <div>
+        <label th:for="image">Image URL</label>
+        <input th:field="*{image}"/>
+        <span th:errors="*{image}"></span>
     </div>
 
     <input type="submit" value="Add Product" />
