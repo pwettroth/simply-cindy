@@ -30,7 +30,7 @@ public class ProductController {
 
         model.addAttribute("products", productDao.findAll());
         model.addAttribute("title", "Simply Cindy");
-        return "product/index";
+        return "product/adminIndex";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
@@ -94,4 +94,5 @@ public class ProductController {
 
         return "product/singleProductDisplay";
     }
+
 }

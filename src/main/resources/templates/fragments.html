@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-    <title th:text="${title}">Simply Cindy</title>
+    <title class="container" th:text="${title}"></title>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -21,12 +21,14 @@
 
 
 </head>
-<body class="deep-purple-skin">
-
-<nav th:fragment="navigation">
-    <a href="/product">List Products</a>
-    <a href="/product/display">View Products</a>
-</nav>
-
+<body>
+<div class="btn-group">
+    <nav th:fragment="navigation">
+        <a class="navbutton" href="/home">Home</a>
+        <a class="navbutton" href="/product">List Products</a>
+        <a class="navbutton" href="/product/display">View Products</a>
+    </nav>
+</div>
 </body>
+
 </html>
