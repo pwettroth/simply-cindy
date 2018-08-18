@@ -5,13 +5,15 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<nav th:replace="fragments :: navigation"></nav>
-<nav>
-    <a href="/product/add">Add Product</a>
-    <a href="/product/remove">Remove Product</a>
-    <a href="/category">Categories</a>
-    <a href="/login">Login</a>
+<nav th:replace="fragments :: navigation">
 </nav>
+<nav>
+    <a href="/product/add" class="navbutton">Add Product</a>
+    <a href="/product/remove" class="navbutton">Remove Product</a>
+    <a href="/category" class="navbutton">Categories</a>
+    <a href="/login" class="navbutton">Login</a>
+</nav>
+
 
 <p th:unless="${products} and ${products.size()}">No items</p>
 
@@ -55,8 +57,8 @@
         });
 
         function rowClicked(value) {
-        location.href = value;
-    }
+            location.href = value;
+        }
     </script>
 </div>
 

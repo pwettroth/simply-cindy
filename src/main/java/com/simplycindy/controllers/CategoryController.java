@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -48,4 +49,18 @@ public class CategoryController {
         return "redirect:";
     }
 
+    @RequestMapping(value="display", method=RequestMethod.GET)
+    public String displayIndividualCategory(Model model) {
+        model.addAttribute("title", "Category");
+
+        return "displayIndividualCategory";
+    }
+
+    @RequestMapping(value = "aCategory", method = RequestMethod.GET)
+    public String displaySingleCategory(@RequestParam int categoryId,
+                                       Model model) {
+        Category aCategory = categoryDao.findOne(categoryId);
+
+        return "product/singleProductDisplay";
+    }
 }

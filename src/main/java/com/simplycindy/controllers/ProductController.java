@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("product")
@@ -69,10 +70,11 @@ public class ProductController {
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveProductForm(@RequestParam int[] productIds) {
         for (int productId : productIds) {
-                productDao.delete(productId);
-            }
-            return "redirect:";
+            productDao.delete(productId);
         }
+
+        return "redirect:";
+    }
 
     @RequestMapping(value = "display")
     public String displayProducts(Model model) {
@@ -95,4 +97,13 @@ public class ProductController {
         return "product/singleProductDisplay";
     }
 
+    @RequestMapping(value = "display", params = "categoryId", method = RequestMethod.GET)
+    public String displayProductsByCategory (@RequestParam int categoryId, Model model) {
+        List<Product> products = productDao.findAll(categoryId);
+
+        model.addAttribute("title", categoryDao.findOne(categoryId).getName());
+        model.addAttribute("products", products);
+
+        return "product/display";
+    }
 }
