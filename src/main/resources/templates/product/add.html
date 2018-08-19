@@ -7,7 +7,7 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<form method="post" th:object="${product}">
+<form method="post" th:object="${product}" action="/product/add" enctype="multipart/form-data">
     <div>
         <label th:for="name">Name</label>
         <input th:field="*{name}"/>
@@ -31,10 +31,10 @@
                     th:value="${category.id}"></option>
         </select>
     </div>
+
     <div>
-        <label th:for="image">Image URL</label>
-        <input th:field="*{image}"/>
-        <span th:errors="*{image}"></span>
+        <label th:for="file">Upload Image</label>
+        <input type="file" name="file" /><br/><br/>
     </div>
 
     <input type="submit" value="Add Product" />

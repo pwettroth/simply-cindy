@@ -12,8 +12,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -26,6 +33,10 @@ public class ProductController {
     @Autowired
     private CategoryDao categoryDao;
 
+    //Save the uploaded file to this folder
+    private static final String UPLOADED_FOLDER = "D:\\IdeaProjects\\simply-cindy\\src\\main\\resources\\static\\images\\";
+
+
     @RequestMapping(value = "")
     public String index(Model model) {
 
@@ -37,25 +48,41 @@ public class ProductController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddProductForm(Model model) {
         model.addAttribute("title", "Add Product");
-        model.addAttribute(new Product());
+        model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryDao.findAll());
         return "product/add";
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @RequestMapping(value = "add", method = RequestMethod.POST, consumes = "multipart/form-data")
     public String processAddProductForm(@ModelAttribute @Valid Product newProduct,
+                                        @RequestParam("categoryId") int categoryId,
+                                        @RequestParam("file") MultipartFile file,
                                         Errors errors,
-                                        @RequestParam int categoryId,
+                                        RedirectAttributes redirectAttributes,
                                         Model model) {
-
         if (errors.hasErrors()) {
             model.addAttribute("title", "Simply Cindy");
             return "product/add";
         }
 
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+            return "redirect:uploadStatus";
+        }
+
+        try {
+
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+            newProduct.setImage("/images/" + file.getOriginalFilename());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Category cat =categoryDao.findOne(categoryId);
         newProduct.setCategory(cat);
-
         productDao.save(newProduct);
         return "redirect:";
     }
