@@ -41,7 +41,7 @@
         <tbody>
             <!--onclick brought to you by: https://stackoverflow.com/questions/27484706/thymeleaf-clickable-row-->
             <tr th:each="product : ${products}" style="cursor:pointer"
-                th:onclick="'javascript:rowClicked(\'product/aProduct?productId=' + ${product.id} + '\');'">
+                th:onclick="'javascript:rowClicked(\'/product/aProduct?productId=' + ${product.id} + '\');'">
                 <td th:text="${product.id}"></td>
                 <td th:text="${product.name}"></td>
                 <td th:text="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')}"></td>

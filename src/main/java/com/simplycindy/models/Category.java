@@ -19,11 +19,14 @@ public class Category {
     @JoinColumn(name = "category_id")
     private List<Product> products = new ArrayList<>();
 
+    private String image;
+
     public Category() {
     }
 
     public Category(String name) {
         this.name = name;
+        this.image = image;
     }
 
     public String getName() {
@@ -36,5 +39,13 @@ public class Category {
 
     public int getId() {
         return id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
