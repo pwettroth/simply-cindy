@@ -1,3 +1,9 @@
+body {
+    background: url("/images/IMG_4229.JPG") no-repeat fixed;
+    background-size: cover;
+
+}
+
 nav {
     padding: 10px;
 }

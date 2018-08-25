@@ -27,10 +27,20 @@
 <div class="btn-group">
     <nav th:fragment="navigation">
         <a class="navbutton" href="/home">Home</a>
-        <a class="navbutton" href="/product">List Products</a>
         <a class="navbutton" href="/product/display">View Products</a>
+        <a class="navbutton" href="/product">Admin View</a>
     </nav>
 </div>
+<div class="btn-group">
+    <nav th:fragment="adminNavigation">
+        <a href="/product/add" class="navbutton">Add Product</a>
+        <a href="/product/remove" class="navbutton">Remove Product</a>
+        <a href="/category" class="navbutton">Categories</a>
+        <a href="/category/remove" class="navbutton">Remove Category</a>
+        <a href="/login" class="navbutton">Login</a>
+    </nav>
+</div>
+
 </body>
 
 </html>

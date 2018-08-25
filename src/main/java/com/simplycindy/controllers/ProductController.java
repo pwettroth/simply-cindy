@@ -8,15 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -99,6 +95,37 @@ public class ProductController {
         for (int productId : productIds) {
             productDao.delete(productId);
         }
+
+        return "redirect:";
+    }
+
+    @RequestMapping(value = "edit/{productId}")
+    public String editProduct(Model model, @PathVariable int productId) {
+        Product p = productDao.findOne(productId);
+        model.addAttribute("product", p);
+        model.addAttribute("categories", categoryDao.findAll());
+
+        return "product/edit";
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.POST, consumes = "multipart/form-data")
+    public String processEditProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file, Integer productId) {
+        Product actualProduct = productDao.findOne(productId);
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+            actualProduct.setImage("/images/" + file.getOriginalFilename());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        actualProduct.setCategory(product.getCategory());
+        actualProduct.setDescription(product.getDescription());
+        actualProduct.setName(product.getName());
+        actualProduct.setPrice(product.getPrice());
+        productDao.save(actualProduct);
 
         return "redirect:";
     }

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -76,6 +73,51 @@ public class CategoryController {
         return "redirect:../product/add";
     }
 
+    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    public String displayRemoveProductForm(Model model) {
+        model.addAttribute("categories", categoryDao.findAll());
+        model.addAttribute("title", "Remove Category");
+        return "category/remove";
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public String processRemoveProductForm(@RequestParam int[] categoryIds) {
+        for (int categoryId : categoryIds) {
+            categoryDao.delete(categoryId);
+        }
+
+        return "redirect:";
+    }
+
+    @RequestMapping(value = "edit/{categoryId}")
+    public String editCategory(Model model, @PathVariable int categoryId) {
+        Category c = categoryDao.findOne(categoryId);
+        model.addAttribute("category", c);
+
+        return "category/edit";
+    }
+
+    @RequestMapping(value="edit", method = RequestMethod.POST, consumes = "multipart/form-data")
+    public String processEditCategory(int categoryId, String name, @RequestParam("file") MultipartFile file) {
+        Category c = categoryDao.findOne(categoryId);
+
+        try {
+
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+            c.setImage("/images/" + file.getOriginalFilename());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        c.setName(name);
+        categoryDao.save(c);
+
+        return "redirect:";
+    }
+
     @RequestMapping(value="display", method=RequestMethod.GET)
     public String displayIndividualCategory(Model model) {
         model.addAttribute("title", "Category");
@@ -90,4 +132,5 @@ public class CategoryController {
 
         return "product/singleProductDisplay";
     }
+
 }

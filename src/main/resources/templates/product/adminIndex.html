@@ -7,11 +7,7 @@
 
 <nav th:replace="fragments :: navigation">
 </nav>
-<nav>
-    <a href="/product/add" class="navbutton">Add Product</a>
-    <a href="/product/remove" class="navbutton">Remove Product</a>
-    <a href="/category" class="navbutton">Categories</a>
-    <a href="/login" class="navbutton">Login</a>
+<nav th:replace="fragments :: adminNavigation">
 </nav>
 
 
@@ -36,17 +32,24 @@
                 <th scope="col">Category
                     <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
+                <th scope="col">
+                    <form method="post">
+                    <input type="submit" value="Remove" />
+                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </form>
+                </th>
             </tr>
         </thead>
         <tbody>
             <!--onclick brought to you by: https://stackoverflow.com/questions/27484706/thymeleaf-clickable-row-->
-            <tr th:each="product : ${products}" style="cursor:pointer"
-                th:onclick="'javascript:rowClicked(\'/product/aProduct?productId=' + ${product.id} + '\');'">
+            <tr th:each="product : ${products}" style="cursor:pointer">
                 <td th:text="${product.id}"></td>
-                <td th:text="${product.name}"></td>
+                <td th:text="${product.name}" th:onclick="'javascript:rowClicked(\'/product/aProduct?productId=' + ${product.id} + '\');'"></td>
                 <td th:text="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')}"></td>
                 <td th:text="${product.description}"></td>
                 <td th:text="${product.category.name}"></td>
+                <td th:text="Edit" th:onclick="'javascript:rowClicked(\'/product/edit/' + ${product.id} + '\');'"></td>
+                <td><input type="checkbox" name="productIds" th:value="${product.id}" th:id="${product.id}" /></td>
             </tr>
         </tbody>
     </table>

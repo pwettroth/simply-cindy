@@ -10,13 +10,13 @@
 
     <form method="post">
 
-        <div th:each="product : ${products}">
-            <input type="checkbox" name="productIds" th:value="${product.id}" th:id="${product.id}" />
-            <label th:for="${product.id}" th:text="${product.name}"></label>
+        <div th:each="category : ${categories}">
+            <input type="checkbox" name="categoryIds" th:value="${category.id}" th:id="${category.id}" />
+            <label th:for="${category.id}" th:text="${category.name}"></label>
             <br />
         </div>
 
-        <input class="navbutton" type="submit" value="Remove Product" />
+        <input class="navbutton" type="submit" value="Remove Category" />
     </form>
 
 </body>

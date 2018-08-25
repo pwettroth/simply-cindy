@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
+
 <body>
 
-<h1 th:text="${title}">Default Title</h1>
+<h1 th:text="'Edit ' + ${product.name}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
 <nav th:replace="fragments :: adminNavigation"></nav>
 
-<form method="post" th:object="${product}" action="/product/add" enctype="multipart/form-data">
+<form method="post" th:object="${product}" action="/product/edit" enctype="multipart/form-data">
+    <input type="hidden" th:value="${product.id}" name="productId" />
+
     <div>
-        <label th:for="name">Name</label>
-        <input th:field="*{name}"/>
-        <span th:errors="*{name}"></span>
+        <label th:for="name">Product Name</label>
+        <input th:field="*{name}" />
+        <span th:errors="*{name}" class="error"></span>
     </div>
     <div>
         <label th:for="price">Price</label>
@@ -25,23 +28,19 @@
         <span th:errors="*{description}"></span>
     </div>
     <div>
-        <label th:for="categoryId">Category</label>
-        <select name="categoryId">
-            <option th:each="category : ${categories}"
-                    th:text="${category.name}"
-                    th:value="${category.id}"></option>
+        <label th:for="category">Category</label>
+        <select th:field="*{category}">
+            <option th:each="cat : ${categories}"
+                    th:text="${cat.name}"
+                    th:value="${cat.id}"></option>
         </select>
-    </div>
-    <div>
-        <a href="../category/add">New Category</a>
     </div>
     <div>
         <label th:for="file">Upload Image</label>
         <input type="file" name="file" /><br/><br/>
     </div>
 
-    <input type="submit" value="Add Product" />
+    <input type="submit" value="Update Product" />
 </form>
-
 </body>
 </html>
