@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 public class Product {
@@ -18,7 +19,7 @@ public class Product {
     private String name;
 
     @NotNull
-    private Float price;
+    private BigDecimal price;
 
     private String description;
 
@@ -27,7 +28,8 @@ public class Product {
 
     private String image;
 
-    public Product(String name, Float price, String description, Category category, String image) {
+
+    public Product(String name, BigDecimal price, String description, Category category, String image, int quantity, String size, String color, String custom) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -50,11 +52,11 @@ public class Product {
         this.name = productName;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

@@ -4,6 +4,11 @@ body {
 
 }
 
+.img-fluid {
+    max-width: 30%;
+    max-height: 30%;
+}
+
 nav {
     padding: 10px;
 }

@@ -1,8 +1,10 @@
 package com.simplycindy.controllers;
 
 import com.simplycindy.models.Category;
+import com.simplycindy.models.OrderItem;
 import com.simplycindy.models.Product;
 import com.simplycindy.models.data.CategoryDao;
+import com.simplycindy.models.data.OrderItemDao;
 import com.simplycindy.models.data.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,9 @@ public class ProductController {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private OrderItemDao orderItemDao;
 
     //Save the uploaded file to this folder
     private static final String UPLOADED_FOLDER = "D:\\IdeaProjects\\simply-cindy\\src\\main\\resources\\static\\images\\";
@@ -77,7 +82,7 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        Category cat =categoryDao.findOne(categoryId);
+        Category cat = categoryDao.findOne(categoryId);
         newProduct.setCategory(cat);
         productDao.save(newProduct);
         return "redirect:";
@@ -137,20 +142,6 @@ public class ProductController {
         return "product/display";
     }
 
-    @RequestMapping(value = "aProduct", method = RequestMethod.GET)
-    public String displaySingleProduct(@RequestParam int productId,
-                                       Model model) {
-
-        Product aProduct = productDao.findOne(productId);
-        model.addAttribute("title", aProduct.getName());
-        model.addAttribute("name", aProduct.getName());
-        model.addAttribute("description", aProduct.getDescription());
-        model.addAttribute("image", aProduct.getImage());
-        model.addAttribute("price", aProduct.getPrice());
-
-        return "product/singleProductDisplay";
-    }
-
     @RequestMapping(value = "display", params = "categoryId", method = RequestMethod.GET)
     public String displayProductsByCategory (@RequestParam int categoryId, Model model) {
         List<Product> products = productDao.findAll(categoryId);
@@ -160,4 +151,18 @@ public class ProductController {
 
         return "product/display";
     }
+
+    @RequestMapping(value = "aProduct", method = RequestMethod.GET)
+    public String displaySingleProduct(@RequestParam int productId,
+                                       Model model) {
+
+        Product aProduct = productDao.findOne(productId);
+        model.addAttribute("title", aProduct.getName());
+        model.addAttribute("product", aProduct);
+
+        model.addAttribute("orderItem", new OrderItem());
+
+        return "product/singleProductDisplay";
+    }
+
 }
