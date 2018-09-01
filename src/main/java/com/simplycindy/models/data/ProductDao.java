@@ -15,7 +15,7 @@ public interface ProductDao extends CrudRepository<Product, Integer> {
     default List<Product> findAll(int categoryId) {
         List<Product> products = new ArrayList<Product>();
         for(Product product : this.findAll()) {
-            if (categoryId == product.getCategory().getId()) {
+            if (product.getCategory() != null && categoryId == product.getCategory().getId()) {
                 products.add(product);
             }
         }

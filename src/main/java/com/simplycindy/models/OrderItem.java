@@ -17,6 +17,9 @@ public class OrderItem {
     private int productId;
 
     @NotNull
+    private String product;
+
+    @NotNull
     private BigDecimal price;
 
     @NotNull
@@ -30,8 +33,9 @@ public class OrderItem {
     @NotNull
     private int quantity;
 
-    public OrderItem(int productId, BigDecimal price, String size, String color, String custom, int quantity) {
+    public OrderItem(int productId, String product, BigDecimal price, String size, String color, String custom, int quantity) {
         this.productId = productId;
+        this.product = product;
         this.price = price;
         this.size = size;
         this.color = color;
@@ -93,4 +97,9 @@ public class OrderItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public String getProduct() { return product; }
+
+    public void setProduct(String product) { this.product = product; }
 }
+

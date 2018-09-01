@@ -5,14 +5,17 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<div class="container-fluid">
+<p th:unless="${product} and ${product.name}">Does not exist.</p>
+<div class="container-fluid" th:if="${product} and ${product.name}">
+
     <h1 th:text="${product.name}"></h1>
     <img th:src="${product.image}" class="img-fluid" alt="Responsive image" />
     <p th:utext="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')} + '&lt;br /&gt;' + ${product.description}"></p>
 </div>
-<div>
+<div th:if="${product} and ${product.name}">
     <form method="post" action="/orders/singleProduct" th:object="${orderItem}">
         <input type="hidden" th:value="${product.id}" name="productId" />
+        <input type="hidden" th:value="${product.name}" name="product" />
         <input type="hidden" th:value="${product.price}" name="price" />
         <div>
             <label th:for="color">Color: </label>

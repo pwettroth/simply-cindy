@@ -70,8 +70,7 @@ public class OrderController {
             List<OrderItem> orderItems = orderItemDao.getOrderItems(orderItemIds);
 
             for (OrderItem orderItem : orderItems) {
-                Product product = productDao.findOne(orderItem.getProductId());
-                values.add(new OrderLog(product.getId(), product.getName(), orderItem.getPrice(), orderItem.getSize(),
+                values.add(new OrderLog(orderItem.getProductId(), orderItem.getProduct(), orderItem.getPrice(), orderItem.getSize(),
                         orderItem.getColor(), orderItem.getCustom(), orderItem.getQuantity()));
             }
             map.put(key, values);

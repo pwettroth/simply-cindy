@@ -42,7 +42,7 @@ public class LoginController {
 
         //TODO store user in session
 
-        return  "product/index";
+        return  "redirect:product";
     }
 
 

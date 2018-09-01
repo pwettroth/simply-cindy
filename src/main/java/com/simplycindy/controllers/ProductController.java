@@ -157,12 +157,18 @@ public class ProductController {
                                        Model model) {
 
         Product aProduct = productDao.findOne(productId);
-        model.addAttribute("title", aProduct.getName());
+
+        String name;
+        if(aProduct == null) {
+            name = null;
+        } else {
+            name = aProduct.getName();
+        }
+        model.addAttribute("title", name);
         model.addAttribute("product", aProduct);
 
         model.addAttribute("orderItem", new OrderItem());
 
         return "product/singleProductDisplay";
     }
-
 }

@@ -67,3 +67,8 @@ nav {
         column-count: 5;
     }
 }
+
+td {
+    background-color:white;
+    opacity: 0.4;
+}

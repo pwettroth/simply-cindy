@@ -16,7 +16,6 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${product.name}"></h5>
                     <p class="card-text" th:utext="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')} + '&lt;br /&gt;' + ${product.description}"></p>
-                    <a href="#" class="btn btn-primary card-button" style="width:80%; height:auto;">Add to cart</a>
                 </div>
             </a>
         </div>
