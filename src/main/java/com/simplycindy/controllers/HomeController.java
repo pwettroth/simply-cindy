@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("home")
@@ -18,6 +17,7 @@ public class HomeController {
     public String homepage(Model model) {
         model.addAttribute("title", "Simply Cindy");
         model.addAttribute("categories", categoryDao.findAll());
+
         return "home/index";
     }
 }

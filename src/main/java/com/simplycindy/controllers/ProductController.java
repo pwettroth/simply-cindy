@@ -39,7 +39,7 @@ public class ProductController {
 
 
     @RequestMapping(value = "")
-    public String index(Model model) {
+    public String adminIndex(Model model) {
 
         model.addAttribute("products", productDao.findAll());
         model.addAttribute("title", "Simply Cindy");

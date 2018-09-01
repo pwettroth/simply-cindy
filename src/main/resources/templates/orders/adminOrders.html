@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body>
+    <h1 th:text="${title}">Default Title</h1>
+
+    <nav th:replace="fragments :: navigation"></nav>
+    <nav th:replace="fragments :: adminNavigation"></nav>
+
+    <p th:unless="${order} and ${order.size()}">No orders</p>
+
+    <div class='table-responsive'>
+        <table th:each="orderEntry : ${order}" id="productTable" class="table table-bordered table-hover">
+            <p th:text="'Order #' + ${orderEntry.key}"></p>
+            <thead>
+                <tr>
+                    <th scope="col">Product Id
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th scope="col">Product
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th scope="col">Price
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th scope="col">Size
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th scope="col">Color
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th scope="col">Custom
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                    <th scope="col">Quantity
+                        <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--onclick brought to you by: https://stackoverflow.com/questions/27484706/thymeleaf-clickable-row-->
+                <tr th:each = "orderLog : ${orderEntry.value}" style="cursor:pointer">
+                    <td th:text="${orderLog.productId}"></td>
+                    <td th:text="${orderLog.product}" th:onclick="'javascript:rowClicked(\'/product/aProduct?productId=' + ${orderLog.productId} + '\');'"></td>
+                    <td th:text="'$' + ${#numbers.formatDecimal(orderLog.price, 0,'DEFAULT', 2, 'DEFAULT')}"></td>
+                    <td th:text="${orderLog.size}"></td>
+                    <td th:text="${orderLog.color}"></td>
+                    <td th:text="${orderLog.custom}"></td>
+                    <td th:text="${orderLog.quantity}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function () {
+                $('#productTable').DataTable();
+                $('.dataTables_length').addClass('bs-select');
+            });
+
+            function rowClicked(value) {
+                location.href = value;
+            }
+        </script>
+    </div>
+</body>
+</html>

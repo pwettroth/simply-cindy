@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Repository
 @Transactional
 public interface ProductDao extends CrudRepository<Product, Integer> {

@@ -11,7 +11,7 @@
     <p th:utext="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')} + '&lt;br /&gt;' + ${product.description}"></p>
 </div>
 <div>
-    <form method="post" action="/cart/singleProduct" th:object="${orderItem}">
+    <form method="post" action="/orders/singleProduct" th:object="${orderItem}">
         <input type="hidden" th:value="${product.id}" name="productId" />
         <input type="hidden" th:value="${product.price}" name="price" />
         <div>
