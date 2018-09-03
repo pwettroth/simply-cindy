@@ -1,9 +1,6 @@
 package com.simplycindy.controllers;
 
-import com.simplycindy.models.OrderData;
-import com.simplycindy.models.OrderItem;
-import com.simplycindy.models.OrderLog;
-import com.simplycindy.models.Product;
+import com.simplycindy.models.*;
 import com.simplycindy.models.data.OrderDataDao;
 import com.simplycindy.models.data.OrderItemDao;
 import com.simplycindy.models.data.ProductDao;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,11 +88,11 @@ public class OrderController {
     }
 
     @RequestMapping("admin")
-    public String viewOrders(Model model) {
+    public String viewOrders(Model model, HttpServletRequest request) {
         model.addAttribute("title", "Simply Cindy");
 
         Map<Integer, List<OrderLog>> map = buildOrderMap(orderDataDao.findAll());
-    
+
         model.addAttribute("order", map);
         return "orders/adminOrders";
     }

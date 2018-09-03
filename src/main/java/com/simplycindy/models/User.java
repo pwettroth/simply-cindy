@@ -1,9 +1,10 @@
 package com.simplycindy.models;
 
 import org.hibernate.validator.constraints.Email;
+import org.springframework.beans.factory.annotation.Value;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,39 +13,33 @@ import javax.validation.constraints.Size;
 public class User {
 
     @Id
-    @GeneratedValue
-    private int userId;
-
-    @NotNull
-    @Size(min=5, max =15, message = "Username must contain 5-15 characters")
-    private String username;
-
     @Email
+    @NotNull(message = "Please enter valid email")
     private String email;
+
+    @Column(columnDefinition="tinyint(1) default 0")
+    @NotNull
+    private boolean isAdmin;
 
     @NotNull
     @Size(min=6, message = "Password must contain at least 6 characters")
     private String password;
 
-    public User(String username, String email, String password) {
-        this.username = username;
+    @NotNull(message = "Please enter your first name")
+    private String firstName;
+
+    @NotNull(message = "Please enter your last name")
+    private String lastName;
+
+    public User(String email, boolean isAdmin, String password, String firstName, String lastName) {
         this.email = email;
+        this.isAdmin = isAdmin;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public User() {
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
@@ -55,6 +50,10 @@ public class User {
         this.email = email;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -62,4 +61,21 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
 }
