@@ -24,7 +24,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 
         // Authentication white list; add all publicly visible pages here
-        List<String> nonAuthPages = Arrays.asList("/login", "/register", "/product/display", "/home", "/product/aProduct");
+        List<String> nonAuthPages = Arrays.asList("/login", "/register", "/product/display", "/product/adminIndex", "/home", "/product/aProduct", "/orders/viewCart");
 
         // Require sign-in for auth pages
         if ( nonAuthPages.contains(request.getRequestURI()) ) {
@@ -41,6 +41,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                     return true;
                 } else {
                     // TODO
+                    return true; // TODO Fix
                     // Create list of admin pages
                     // See if normal user is trying to access an admin page, and return false if that is the case
                     // If normal user is trying to access non-admin page return true

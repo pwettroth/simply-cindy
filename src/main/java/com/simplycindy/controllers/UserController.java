@@ -90,6 +90,12 @@ public class UserController {
         return  "redirect:home";
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "redirect:/login";
+    }
+
     protected User getUserFromSession(HttpSession session) {
         String email = (String) session.getAttribute(userSessionKey);
 
@@ -98,7 +104,6 @@ public class UserController {
             user = userDao.findByEmail(email);
         }
         return user;
-        //return email == null ? null : userDao.findByEmail(email);
     }
 
     protected void setUserInSession(HttpSession session, User user) {

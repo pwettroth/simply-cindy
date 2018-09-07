@@ -12,12 +12,12 @@ import java.util.List;
 @Transactional
 public interface OrderItemDao extends CrudRepository<OrderItem, Integer> {
 
-    default List<OrderItem> getOrderItems(List<Integer> orderIds) {
+    default List<OrderItem> getOrderItems(List<Integer> orderItemIds) {
 
         List<OrderItem> orderItems = new ArrayList<>();
 
-        for (Integer orderId : orderIds) {
-            OrderItem item = findOne(orderId);
+        for (Integer orderItemId : orderItemIds) {
+            OrderItem item = findOne(orderItemId);
             orderItems.add(item);
         }
 

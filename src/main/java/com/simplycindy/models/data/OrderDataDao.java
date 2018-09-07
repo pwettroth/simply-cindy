@@ -13,10 +13,14 @@ import java.util.List;
 public interface OrderDataDao extends CrudRepository <OrderData, Integer> {
 
     default List<Integer> getOrderItemIds(int orderId) {
-
-        List<Integer> orderItemIds = new ArrayList<>();
         OrderData order = findOne(orderId);
         String orderItemIdString = order.getOrderItemIds();
+
+        return splitOrderItemIds(orderItemIdString);
+    }
+
+    default List<Integer> splitOrderItemIds(String orderItemIdString) {
+        List<Integer> orderItemIds = new ArrayList<>();
 
         String[] items = orderItemIdString.split(",");
 
@@ -24,7 +28,6 @@ public interface OrderDataDao extends CrudRepository <OrderData, Integer> {
             int itemNumber = Integer.parseInt(item);
             orderItemIds.add(itemNumber);
         }
-
         return orderItemIds;
     }
 }

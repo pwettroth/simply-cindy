@@ -15,8 +15,12 @@ public class OrderData {
     @NotNull
     private String orderItemIds;
 
-    public OrderData(String orderItemIds) {
+    @NotNull
+    private String email;
+
+    public OrderData(String orderItemIds, String email) {
         this.orderItemIds = orderItemIds;
+        this.email = email;
     }
 
     public OrderData() {
@@ -32,5 +36,13 @@ public class OrderData {
 
     public void setOrderItemIds(String orderItemIds) {
         this.orderItemIds = orderItemIds;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
