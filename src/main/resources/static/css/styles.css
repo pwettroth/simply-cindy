@@ -1,7 +1,14 @@
 body {
     background: url("/images/IMG_4229.JPG") no-repeat fixed;
     background-size: cover;
+}
 
+h1 {
+    color: gold;
+    font-family: 'Clicker Script', cursive;
+    font-size: 100px;
+    border: 5px white;
+    border-style: dashed none;
 }
 
 .img-fluid {
@@ -14,6 +21,7 @@ nav {
 }
 
 .navbutton {
+    font-family: 'Clicker Script', cursive;
     font-size: 26px;
     border: none;
 }
@@ -29,13 +37,52 @@ nav {
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
-    margin:10px;
 }
 
-.cardcategory {
+.productcardlink, .categorycardlink {
+    text-transform: capitalize;
+    color: black;
+}
+
+.product-title, .category-title, .categorycardlink {
+    font-weight: bolder !important;
+}
+
+.product-text {
+    font-weight: bolder !important;
+}
+
+.categories, .carousel {
+    float: left;
+}
+
+.categories {
+    width: 50%;
+}
+
+.carousel {
+    width: 50%;
+    background-color: white !important;
+}
+
+.category, .card {
+    font-family: 'Clicker Script', cursive;
     font-size: 40px;
     font-alignment: center;
     color: white;
+}
+
+.category {
+    float: none;
+    padding: 0;
+}
+
+.category-img {
+    min-width: 150px;
+    min-height: 150px;
+    max-width: 500px;
+    max-height: 500px;
+    object-fit: cover;
 }
 
 .card-img-top{
@@ -71,4 +118,43 @@ nav {
 td {
     background-color:white;
     opacity: 0.4;
+}
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 5; /* *don't* Stay at the top */
+    left: 0;
+    background-color: rgba(255, 255, 128, .5); /* opaque pale yellow*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-family: 'Clicker Script', cursive;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
 }

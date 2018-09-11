@@ -139,6 +139,7 @@ public class ProductController {
     public String displayProducts(Model model) {
         model.addAttribute("title", "Products");
         model.addAttribute("products", productDao.findAll());
+        model.addAttribute("categories", categoryDao.findAll());
         return "product/display";
     }
 
@@ -148,6 +149,7 @@ public class ProductController {
 
         model.addAttribute("title", categoryDao.findOne(categoryId).getName());
         model.addAttribute("products", products);
+        model.addAttribute("categories", categoryDao.findAll());
 
         return "product/display";
     }

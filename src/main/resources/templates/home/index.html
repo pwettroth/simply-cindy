@@ -7,16 +7,31 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<nav th:replace="fragments :: navigation"></nav>
-
-<div class="card-columns">
-    <div class="card cardcategory" th:each="category : ${categories}">
-        <a th:href="'product/display?categoryId=' + ${category.id}">
-            <img class="card-img" th:src="${category.image}" />
-            <div class="card-img-overlay">
-                <h5 class="card-title" th:text="${category.name}"></h5>
-            </div>
-        </a>
+<div class="container">
+    <div class="row">
+        <div class="column">
+            <nav th:replace="fragments :: navigation"></nav>
+        </div>
+    </div>
+    <!-- Modified from https://stackoverflow.com/questions/17812372/in-thymeleaf-how-can-write-theach-to-combine-rows-and-columns -->
+    <div class="container">
+        <div class="carousel">
+            Carousel TBD
+        </div>
+        <div class="categories">
+            <th:block th:with="colCount=2">
+                <div th:each="r : ${#numbers.sequence(0, categories.size(), colCount)}"  class="row">
+                    <div class="category col-sm" th:each="c : ${#numbers.sequence(0, colCount - 1)}" th:if="${r + c &lt; categories.size()}">
+                        <a class="categorycardlink" th:with="category=${categories.get(r + c)}" th:href="'product/display?categoryId=' + ${category.id}">
+                            <img class="card-img category-img" th:src="${category.image}" />
+                            <div class="card-img-overlay">
+                                <h5 class="card-title category-title" th:text="${category.name}"></h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </th:block>
+        </div>
     </div>
 </div>
 

@@ -2,36 +2,43 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
+    <h1 th:text="${title}">Default Title</h1>
 
-<h1 th:text="${title}">Default Title</h1>
+    <nav th:replace="fragments :: navigation"></nav>
 
-<nav th:replace="fragments :: navigation"></nav>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a th:each="category : ${categories}" th:href="'display?categoryId=' + ${category.id}" th:text="${category.name}"></a>
 
-<div class="product-display" style="width:80%;margin:auto;">
+    </div>
+    <!-- Use any element to open the sidenav -->
+    <span onclick="openNav()">Shop by Category</span>
 
-    <div class="card-columns">
-        <div class="card" th:each="product : ${products}">
-            <a th:href="'aProduct?productId=' + ${product.id}">
-                <img class="card-img-top" th:src="${product.image}" alt="Card image cap" />
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${product.name}"></h5>
-                    <p class="card-text" th:utext="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')} + '&lt;br /&gt;' + ${product.description}"></p>
-                </div>
-            </a>
+    <div class="product-display" style="width:80%;margin:auto;">
+
+        <div class="card-columns">
+            <div class="card" th:each="product : ${products}">
+                <a class="productcardlink" th:href="'aProduct?productId=' + ${product.id}">
+                    <img class="card-img-top" th:src="${product.image}" alt="Card image cap" />
+                    <div class="card-body">
+                        <h5 class="card-title product-title" th:text="${product.name}"></h5>
+                        <p class="card-text product-text" th:utext="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')} + '&lt;br /&gt;' + ${product.description}"></p>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
-<!--
-<table th:object="${product}">
+    <script>
+        /* Set the width of the side navigation to 250px */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
 
-    <tr th:each="product : ${products}">
-        <td th:text="${product.name}"></td>
-        <td th:text="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')}"></td>
-        <td th:text="${product.description}"></td>
-    </tr>
-
-</table>
--->
+        /* Set the width of the side navigation to 0 */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
 </body>
 </html>

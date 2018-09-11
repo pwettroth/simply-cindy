@@ -6,7 +6,6 @@
 
     <title class="container" th:text="${title}"></title>
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
@@ -18,13 +17,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Clicker+Script" rel="stylesheet" />
+
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <script type="text/javascript" th:src="@{/js/script.js}"></script>
 
 
 </head>
 <body>
-<div class="btn-group">
+<nav class="btn-group">
     <nav th:fragment="navigation">
         <a class="navbutton" href="/home">Home</a>
         <a class="navbutton" href="/product/display">View Products</a>
@@ -33,7 +35,7 @@
         <a href="/login" class="navbutton">Login</a>
         <a href="/logout" class="navbutton">Logout</a>
     </nav>
-</div>
+</nav>
 <div class="btn-group">
     <nav th:fragment="adminNavigation">
         <a href="/orders/admin" class="navbutton">View Orders</a>

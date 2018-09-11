@@ -32,10 +32,11 @@
                 <th scope="col">Category
                     <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
+                <th scope="col">Edit
+                </th>
                 <th scope="col">
                     <form method="post">
-                    <input type="submit" value="Remove" />
-                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                        <input type="submit" value="Remove" />
                     </form>
                 </th>
             </tr>
@@ -47,8 +48,7 @@
                 <td th:text="${product.name}" th:onclick="'javascript:rowClicked(\'/product/aProduct?productId=' + ${product.id} + '\');'"></td>
                 <td th:text="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')}"></td>
                 <td th:text="${product.description}"></td>
-                <td th:if="${product.category} and ${product.category.name}" th:text="${product.category.name}"></td>
-                <td th:unless="${product.category} and ${product.category.name}" th:text="NA"></td>
+                <td th:text="${product.category} and ${product.category.name} ? ${product.category.name} : 'NA'"></td>
                 <td th:text="Edit" th:onclick="'javascript:rowClicked(\'/product/edit/' + ${product.id} + '\');'"></td>
                 <td><input type="checkbox" name="productIds" th:value="${product.id}" th:id="${product.id}" /></td>
             </tr>
