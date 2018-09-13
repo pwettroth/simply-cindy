@@ -1,19 +1,19 @@
 package com.simplycindy.models.data;
 
-import com.simplycindy.models.User;
+import com.simplycindy.models.UserData;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public interface UserDao extends CrudRepository<User, Long> {
+public interface UserDao extends CrudRepository<UserData, Long> {
 
-    default User findByEmail(String email){
-        Iterable<User> users = findAll();
+    default UserData findByEmail(String email){
+        Iterable<UserData> users = findAll();
 
-        User actualUser = null;
-        for (User user : users) {
+        UserData actualUser = null;
+        for (UserData user : users) {
             if (user.getEmail().equals(email)) {
                 actualUser = user;
                 break;

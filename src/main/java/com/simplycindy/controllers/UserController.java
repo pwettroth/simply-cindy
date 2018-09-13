@@ -1,11 +1,12 @@
 package com.simplycindy.controllers;
 
 import com.simplycindy.models.Login;
-import com.simplycindy.models.User;
+import com.simplycindy.models.UserData;
 import com.simplycindy.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,35 +27,42 @@ public class UserController {
     @RequestMapping(value="register", method=RequestMethod.GET)
     public String displayAddUserForm(Model model) {
         model.addAttribute("title", "User Signup");
-        model.addAttribute(new User());
+        model.addAttribute("userData", new UserData());
         return "user/register";
     }
 
     @RequestMapping(value="register", method=RequestMethod.POST)
-    public String processAddUserForm(Model model, @ModelAttribute @Valid User newUser,
-                                     Errors errors, String verify, HttpServletRequest request) {
+    public String processAddUserForm(Model model, @Valid UserData userData, String verify,
+                                     BindingResult errors, HttpServletRequest request) {
+
         model.addAttribute("title", "User Signup");
-        model.addAttribute(newUser);
+        model.addAttribute("userData", userData);
 
         if (errors.hasErrors()) {
-            newUser.setPassword("");
+            userData.setPassword("");
+            model.addAttribute("message", "Error adding user!");
+            return "user/register";
+        }
+
+        if(userData == null) {
+            model.addAttribute("user", new UserData());
             model.addAttribute("message", "Error adding user");
             return "user/register";
         }
 
-        User existingUser = userDao.findByEmail(newUser.getEmail());
+        UserData existingUser = userDao.findByEmail(userData.getEmail());
 
         if (existingUser != null) {
             errors.rejectValue("email", "email.alreadyexists", "A user with that email already exists");
             return "user/register";
-        } else if(newUser.getPassword() == null || !newUser.getPassword().equals(verify)) {
-            newUser.setPassword("");
+        } else if(userData.getPassword() == null || !userData.getPassword().equals(verify)) {
+            userData.setPassword("");
             model.addAttribute("message", "Passwords do not match");
             return "user/register";
         } else {
             model.addAttribute("title", "Simply Cindy");
-            userDao.save(newUser);
-            setUserInSession(request.getSession(), newUser);
+            userDao.save(userData);
+            setUserInSession(request.getSession(), userData);
 
             return "redirect:/home";
         }
@@ -75,7 +83,7 @@ public class UserController {
         model.addAttribute("login", logInUser);
         model.addAttribute("title", "Login");
 
-        User actualUser = userDao.findByEmail(logInUser.getEmail());
+        UserData actualUser = userDao.findByEmail(logInUser.getEmail());
         if (errors.hasErrors()) {
             model.addAttribute("message", errors.getAllErrors());
             logInUser.setPassword("");
@@ -96,22 +104,22 @@ public class UserController {
         return "redirect:/login";
     }
 
-    protected User getUserFromSession(HttpSession session) {
+    protected UserData getUserFromSession(HttpSession session) {
         String email = (String) session.getAttribute(userSessionKey);
 
-        User user = null;
+        UserData user = null;
         if(email != null) {
             user = userDao.findByEmail(email);
         }
         return user;
     }
 
-    protected void setUserInSession(HttpSession session, User user) {
+    protected void setUserInSession(HttpSession session, UserData user) {
         session.setAttribute(userSessionKey, user.getEmail());
     }
 
     @ModelAttribute("user")
-    public User getUserForModel(HttpServletRequest request) {
+    public UserData getUserForModel(HttpServletRequest request) {
         return getUserFromSession(request.getSession());
     }
 }

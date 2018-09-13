@@ -1,7 +1,6 @@
 package com.simplycindy.models;
 
 import org.hibernate.validator.constraints.Email;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,18 +9,18 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class User {
+public class UserData {
 
     @Id
     @Email
     @NotNull(message = "Please enter valid email")
     private String email;
 
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column(name="isAdmin", columnDefinition="tinyint(1) default 0")
     @NotNull
     private boolean isAdmin;
 
-    @NotNull
+    @NotNull(message = "Password was empty")
     @Size(min=6, message = "Password must contain at least 6 characters")
     private String password;
 
@@ -31,7 +30,7 @@ public class User {
     @NotNull(message = "Please enter your last name")
     private String lastName;
 
-    public User(String email, boolean isAdmin, String password, String firstName, String lastName) {
+    public UserData(String email, boolean isAdmin, String password, String firstName, String lastName) {
         this.email = email;
         this.isAdmin = isAdmin;
         this.password = password;
@@ -39,7 +38,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public User() {
+    public UserData() {
     }
 
     public String getEmail() {

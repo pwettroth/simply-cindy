@@ -6,19 +6,18 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<form method="post" th:object="${user}">
+<form action="#" th:action="@{/register}" th:object="${userData}" method="post">
 
     <div th:text="${message}"></div>
-
     <div>
         <label class="text" th:for="email">Email : </label>
         <input th:field="*{email}" type="email"/>
-        <span th:errors="*{email}" class="error"></span>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
     </div>
     <div>
         <label class="text" th:for="password">Password : </label>
         <input th:field="*{password}" type="password"/>
-        <span th:errors="*{password}" class="error"></span>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
     </div>
     <div>
         <label class="text" th:for="verify">Verify Password : </label>
@@ -27,12 +26,12 @@
     <div>
         <label class="text" th:for="firstName">First Name: </label>
         <input th:field="*{firstName}"/>
-        <span th:errors="*{firstName}" class="error"></span>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
     </div>
     <div>
         <label class="text" th:for="lastName">Last Name: </label>
         <input th:field="*{lastName}"/>
-        <span th:errors="*{lastName}" class="error"></span>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
     </div>
     <input class="button" type="submit" value="Sign Up" />
 </form>

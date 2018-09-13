@@ -1,7 +1,7 @@
 package com.simplycindy;
 
 import com.simplycindy.controllers.UserController;
-import com.simplycindy.models.User;
+import com.simplycindy.models.UserData;
 import com.simplycindy.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -35,7 +35,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             String email = (String) request.getSession().getAttribute(UserController.userSessionKey);
 
             if (email != null) {
-                User user = userDao.findByEmail(email);
+                UserData user = userDao.findByEmail(email);
 
                 boolean isUserAnAdmin = user.isAdmin();
                 if(isUserAnAdmin) {
