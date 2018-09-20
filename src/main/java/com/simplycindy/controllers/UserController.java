@@ -55,7 +55,7 @@ public class UserController {
         if (existingUser != null) {
             errors.rejectValue("email", "email.alreadyexists", "A user with that email already exists");
             return "user/register";
-        } else if(userData.getPassword() == null || !userData.getPassword().equals(verify)) {
+        } else if(userData.getPassword() == null || !userData.doesPasswordMatch(verify)) {
             userData.setPassword("");
             model.addAttribute("message", "Passwords do not match");
             return "user/register";
@@ -88,7 +88,7 @@ public class UserController {
             model.addAttribute("message", errors.getAllErrors());
             logInUser.setPassword("");
             return "user/login";
-        } else if(actualUser == null || !actualUser.getPassword().equals(logInUser.getPassword())) {
+        } else if(actualUser == null || !actualUser.doesPasswordMatch(logInUser.getPassword())) {
             model.addAttribute("message", "Incorrect username/password");
             logInUser.setPassword("");
             return "user/login";

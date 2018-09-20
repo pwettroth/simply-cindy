@@ -1,6 +1,7 @@
 package com.simplycindy.models;
 
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 public class UserData {
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Id
     @Email
@@ -33,7 +35,7 @@ public class UserData {
     public UserData(String email, boolean isAdmin, String password, String firstName, String lastName) {
         this.email = email;
         this.isAdmin = isAdmin;
-        this.password = password;
+        this.password = encoder.encode(password);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -57,8 +59,12 @@ public class UserData {
         return password;
     }
 
+    public boolean doesPasswordMatch(String verify) {
+        return encoder.matches(verify, password);
+    }
+
     public void setPassword(String password) {
-        this.password = password;
+        this.password = encoder.encode(password);
     }
 
     public String getFirstName() {

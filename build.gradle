@@ -28,6 +28,7 @@ repositories {
 
 
 dependencies {
+	compile('org.springframework.security:spring-security-crypto')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('org.springframework.boot:spring-boot-devtools')
