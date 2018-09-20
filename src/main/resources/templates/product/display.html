@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<div id="main">
 <head th:replace="fragments :: head"></head>
-<body>
+<body class="main-bg">
     <h1 th:text="${title}">Default Title</h1>
 
     <nav th:replace="fragments :: navigation"></nav>
@@ -30,15 +31,18 @@
     </div>
 
     <script>
-        /* Set the width of the side navigation to 250px */
+        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
         }
 
-        /* Set the width of the side navigation to 0 */
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
         }
     </script>
 </body>
+</div>
 </html>

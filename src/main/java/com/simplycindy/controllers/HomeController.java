@@ -20,4 +20,11 @@ public class HomeController {
 
         return "home/index";
     }
+
+    @RequestMapping(value="adminHome")
+    public String adminHome(Model model) {
+        model.addAttribute("title", "Admin Dashboard");
+
+        return "admin/adminIndex";
+    }
 }

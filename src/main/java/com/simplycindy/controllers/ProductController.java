@@ -38,12 +38,12 @@ public class ProductController {
     private static final String UPLOADED_FOLDER = "D:\\IdeaProjects\\simply-cindy\\src\\main\\resources\\static\\images\\";
 
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "admin")
     public String adminIndex(Model model) {
 
         model.addAttribute("products", productDao.findAll());
         model.addAttribute("title", "Simply Cindy");
-        return "product/adminIndex";
+        return "admin/viewProducts";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
@@ -51,7 +51,7 @@ public class ProductController {
         model.addAttribute("title", "Add Product");
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryDao.findAll());
-        return "product/add";
+        return "admin/addProduct";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST, consumes = "multipart/form-data")
@@ -63,7 +63,7 @@ public class ProductController {
                                         Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Simply Cindy");
-            return "product/add";
+            return "admin/addProduct";
         }
 
         if (file.isEmpty()) {
@@ -92,7 +92,7 @@ public class ProductController {
     public String displayRemoveProductForm(Model model) {
         model.addAttribute("products", productDao.findAll());
         model.addAttribute("title", "Remove Product");
-        return "product/remove";
+        return "admin/removeProduct";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
@@ -110,7 +110,7 @@ public class ProductController {
         model.addAttribute("product", p);
         model.addAttribute("categories", categoryDao.findAll());
 
-        return "product/edit";
+        return "admin/editProduct";
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST, consumes = "multipart/form-data")

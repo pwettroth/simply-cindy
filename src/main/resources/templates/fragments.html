@@ -31,21 +31,41 @@
         <a class="navbutton" href="/home">Home</a>
         <a class="navbutton" href="/product/display">View Products</a>
         <a class="navbutton" href="/orders/viewCart">View Cart</a>
-        <a class="navbutton" href="/product">Admin View</a>
+        <a class="navbutton" href="/home/adminHome">Admin View</a>
         <a href="/login" class="navbutton">Login</a>
         <a href="/logout" class="navbutton">Logout</a>
     </nav>
 </nav>
-<div class="btn-group">
-    <nav th:fragment="adminNavigation">
-        <a href="/orders/admin" class="navbutton">View Orders</a>
-        <a href="/product/add" class="navbutton">Add Product</a>
-        <a href="/product/remove" class="navbutton">Remove Product</a>
-        <a href="/category" class="navbutton">Categories</a>
-        <a href="/category/add" class="navbutton">Add Category</a>
-        <a href="/category/remove" class="navbutton">Remove Category</a>
-    </nav>
-</div>
+
+<nav th:fragment="adminNavigation">
+    <a class="navbutton" onclick="openNav()">Click Me</a>
+
+    <div id="mySidenav" class="admin-sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/orders/admin">View Orders</a>
+        <a href="/product/admin">View Products</a>
+        <a href="/product/add">Add Product</a>
+        <a href="/product/remove">Remove Product</a>
+        <a href="/category">Categories</a>
+        <a href="/category/add">Add Category</a>
+        <a href="/category/remove">Remove Category</a>
+    </div>
+
+
+    <script>
+     /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+    </script>
+</nav>
 
 </body>
 

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<div id="main">
 <head th:replace="fragments :: head"></head>
-
-<body>
-
+<body class="admin-bg">
 <h1 th:text="'Edit ' + ${product.name}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
@@ -43,4 +42,5 @@
     <input type="submit" value="Update Product" />
 </form>
 </body>
+</div>
 </html>

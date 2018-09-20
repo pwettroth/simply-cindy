@@ -38,7 +38,7 @@ public class OrderController {
     public static final String orderItemIdsSessionKey = "orderItemIds";
 
     @RequestMapping(value = "singleProduct", method = RequestMethod.POST)
-    public String buyProduct(@ModelAttribute @Valid OrderItem newOrderItem,
+    public String buyProduct(@ModelAttribute("orderItem") @Valid OrderItem newOrderItem,
                              @RequestParam int productId, Model model, HttpServletRequest request) {
 
         Product aProduct = productDao.findOne(productId);
@@ -60,7 +60,7 @@ public class OrderController {
             session.setAttribute(orderItemIdsSessionKey, orderItemIds + ',' + orderItemId);
         }
 
-        return "product/singleProductDisplay";
+        return "redirect:viewCart";
     }
 
     @RequestMapping(value = "viewCart", method = RequestMethod.GET)
@@ -74,9 +74,36 @@ public class OrderController {
             List<Integer> splitItems = orderDataDao.splitOrderItemIds(orderItemIds);
             List<OrderItem> orderItems = orderItemDao.getOrderItems(splitItems);
 
+            double total = 0;
+
+            for (OrderItem item : orderItems) {
+                total += item.getPrice().doubleValue() * item.getQuantity();
+            }
             model.addAttribute("items", orderItems);
+            model.addAttribute("totalPrice", total);
         }
         return "orders/cart";
+    }
+
+    @RequestMapping("checkout")
+    public String checkout(Model model, HttpServletRequest request) {
+        model.addAttribute("title", "Checkout");
+
+        HttpSession session = request.getSession();
+        String orderItemIds = (String) session.getAttribute(orderItemIdsSessionKey);
+        String email = (String) session.getAttribute(UserController.userSessionKey);
+
+        OrderData orderData = new OrderData(orderItemIds, email);
+
+        orderDataDao.save(orderData);
+        //clears cart once order is placed
+        session.setAttribute(orderItemIdsSessionKey, null);
+        return "redirect:/home";
+    }
+
+    @RequestMapping("payment")
+    public String payment() {
+        return "orders/checkout";
     }
 
     @RequestMapping("")
@@ -84,7 +111,6 @@ public class OrderController {
 
         return "orders/view";
     }
-
 
     // Build the orderMap up based on the order data passed in
     private Map<Integer, List<OrderLog>> buildOrderMap(Iterable<OrderData> orderDataList) {
@@ -125,21 +151,5 @@ public class OrderController {
 
         model.addAttribute("order", map);
         return "orders/adminOrders";
-    }
-
-    @RequestMapping("checkout")
-    public String checkout(Model model, HttpServletRequest request) {
-        model.addAttribute("title", "Checkout");
-
-        HttpSession session = request.getSession();
-        String orderItemIds = (String) session.getAttribute(orderItemIdsSessionKey);
-        String email = (String) session.getAttribute(UserController.userSessionKey);
-
-        OrderData orderData = new OrderData(orderItemIds, email);
-
-        orderDataDao.save(orderData);
-
-        session.setAttribute(orderItemIdsSessionKey, null);
-        return "redirect:/home";
     }
 }

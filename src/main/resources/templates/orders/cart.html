@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body>
-<h1 th:text="${title}">Default Title</h1>
+<body class="main-bg">
+    <h1 th:text="${title}">Default Title</h1>
 
-<nav th:replace="fragments :: navigation"></nav>
+    <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${items} and ${items.size()}">No orders</p>
+    <p th:unless="${items} and ${items.size()}">Your cart is empty. Click <a href="/product/display">here</a> to start shopping.</p>
 
-<div class="card-columns" th:if="${items} and ${items.size()}">
-    <div class="card" th:each="item : ${items}">
-        <a th:href="'/product/aProduct?productId=' + ${item.productId}">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${item.product}"></h5>
-                <p class="card-text" th:utext="'$' + ${#numbers.formatDecimal(item.price, 0,'DEFAULT', 2, 'DEFAULT')}"></p>
-                <p class="card-text" th:text="${item.quantity}"></p>
-                <p class="card-text" th:text="${item.color}"></p>
-                <p class="card-text" th:if="${item.custom}" th:text="${item.custom}"></p>
-            </div>
-        </a>
+    <div th:if="${items} and ${items.size()}">
+        <div class="card w-75" th:each="item : ${items}">
+            <a th:href="'/product/aProduct?productId=' + ${item.productId}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${item.product}"></h5>
+                    <p class="card-text" th:utext="'$' + ${#numbers.formatDecimal(item.price, 0,'DEFAULT', 2, 'DEFAULT')}"></p>
+                    <p class="card-text" th:text="${item.quantity}"></p>
+                    <p class="card-text" th:text="${item.color}"></p>
+                    <p class="card-text" th:if="${item.custom}" th:text="${item.custom}"></p>
+                </div>
+            </a>
+        </div>
+
+        <div>
+            <p th:text="'Total: $'+ ${#numbers.formatDecimal(totalPrice, 0,'DEFAULT', 2, 'DEFAULT')}"></p>
+        </div>
+
+        <a class="navbutton" href="javascript:history.go(-2)">Continue Shopping</a>
+        <a class="navbutton" href="/orders/payment">Checkout</a>
+
+        <!-- saves order to database and clears cart
+        <a class="navbutton" href="/orders/checkout">Checkout</a>
+        -->
     </div>
-    <a class="navbutton" href="/orders/checkout">Checkout</a>
-</div>
-
-
-
 </body>
 </html>

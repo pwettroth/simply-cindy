@@ -1,67 +1,72 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body>
+<body class="main-bg">
 
-<nav th:replace="fragments :: navigation"></nav>
+    <h1>Simply Cindy</h1>
+    <nav th:replace="fragments :: navigation"></nav>
+    <p th:unless="${product} and ${product.name}">Does not exist.</p>
 
-<p th:unless="${product} and ${product.name}">Does not exist.</p>
-<div class="container-fluid" th:if="${product} and ${product.name}">
+    <div class="container">
+        <div class="row">
+            <h2 th:text="${product.name}"></h2>
+        </div>
+        <div class="row">
+            <div class="col-4" th:if="${product} and ${product.name}">
+                <img th:src="${product.image}" class="img-fluid" alt="Responsive image" />
+            </div>
 
-    <h1 th:text="${product.name}"></h1>
-    <img th:src="${product.image}" class="img-fluid" alt="Responsive image" />
-    <p th:utext="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')} + '&lt;br /&gt;' + ${product.description}"></p>
-</div>
-<div th:if="${product} and ${product.name}">
-    <form method="post" action="/orders/singleProduct" th:object="${orderItem}">
-        <input type="hidden" th:value="${product.id}" name="productId" />
-        <input type="hidden" th:value="${product.name}" name="product" />
-        <input type="hidden" th:value="${product.price}" name="price" />
-        <div>
-            <label th:for="color">Color: </label>
-            <select th:field="*{color}" name="color">
-                <option value="Red">Red</option>
-                <option value="Blue">Blue</option>
-                <option value="Black">Black</option>
-                <option value="Green">Green</option>
-                <option value="White">White</option>
-            </select>
+            <div th:if="${product} and ${product.name}">
+                <p th:utext="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')} + '&lt;br /&gt;' + ${product.description}"></p>
+                <form method="post" action="/orders/singleProduct" th:object="${orderItem}">
+                    <input type="hidden" th:value="${product.id}" name="productId" />
+                    <input type="hidden" th:value="${product.name}" name="product" />
+                    <input type="hidden" th:value="${product.price}" name="price" />
+                    <div>
+                        <label th:for="color">Color: </label>
+                        <select th:field="*{color}" name="color">
+                            <option value="Red">Red</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Black">Black</option>
+                            <option value="Green">Green</option>
+                            <option value="White">White</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label th:for="size">Size: </label>
+                        <select th:field="*{size}" name="size">
+                            <option value="Small">Small</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Large">Large</option>
+                            <option value="X-Large">X-Large</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label th:for="custom">Customize: </label>
+                        <input th:field="*{custom}" name="custom" />
+                    </div>
+                    <div>
+                        <label th:for="quantity">Quantity: </label>
+                        <select th:field="*{quantity}" name="quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input class="navbutton" type="submit" value="Add to Cart" />
+                    </div>
+                </form>
+            </div>
         </div>
-        <div>
-            <label th:for="size">Size: </label>
-            <select th:field="*{size}" name="size">
-                <option value="Small">Small</option>
-                <option value="Medium">Medium</option>
-                <option value="Large">Large</option>
-                <option value="X-Large">X-Large</option>
-            </select>
-        </div>
-        <div>
-            <label th:for="custom">Customize: </label>
-            <input th:field="*{custom}" name="custom" />
-        </div>
-        <div>
-            <label th:for="quantity">Quantity: </label>
-            <select th:field="*{quantity}" name="quantity">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                ]''417'
-                k/}{9
-            </select>
-        </div>
-        <div>
-            <input type="submit" value="Add to Cart" />
-        </div>
-    </form>
-</div>
+    </div>
 
 
 </body>

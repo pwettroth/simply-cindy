@@ -1,6 +1,15 @@
-body {
-    background: url("/images/IMG_4229.JPG") no-repeat fixed;
+.main-bg {
+    background: url("/images/IMG_4229.2.JPG") no-repeat fixed;
     background-size: cover;
+    height: 100%;
+    background-position: center;
+}
+
+.admin-bg {
+    background: url("/images/green_chevron.jpeg") no-repeat fixed;
+    background-size: cover;
+    height: 100%;
+    background-position: center;
 }
 
 h1 {
@@ -11,9 +20,22 @@ h1 {
     border-style: dashed none;
 }
 
+h2 {
+    color: gold;
+    font-family: 'Clicker Script', cursive;
+    font-size: 60px;
+    text-transform: capitalize;
+
+}
+
+p {
+    font-family: 'Clicker Script', cursive;
+    font-size: 30px;
+    font-weight: bold;
+}
+
 .img-fluid {
-    max-width: 30%;
-    max-height: 30%;
+    min-width: 100%;
 }
 
 nav {
@@ -126,12 +148,12 @@ td {
 }
 
 /* The side navigation menu */
-.sidenav {
+.sidenav, .admin-sidenav {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
-    top: 5; /* *don't* Stay at the top */
+    top: 0; /* *don't* Stay at the top */
     left: 0;
     background-color: rgba(255, 255, 128, .5); /* opaque pale yellow*/
     overflow-x: hidden; /* Disable horizontal scroll */
@@ -139,8 +161,12 @@ td {
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
+.admin-sidenav {
+    background-color: rgba(0, 128, 0, .5); /* opaque pale yellow*/
+}
+
 /* The navigation menu links */
-.sidenav a {
+.sidenav a, .admin-sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-family: 'Clicker Script', cursive;
@@ -151,15 +177,27 @@ td {
 }
 
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
+.sidenav a:hover, .admin-sidenav a:hover {
     color: #FFD700;
 }
 
 /* Position and style the close button (top right corner) */
-.sidenav .closebtn {
+.sidenav .closebtn, .admin-sidenav .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+}
+}
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav, .admin-sidenav {padding-top: 15px;}
+    .sidenav a, .admin-sidenav a {font-size: 18px;}
 }
