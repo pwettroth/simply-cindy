@@ -6,69 +6,23 @@
 
     <nav th:replace="fragments :: navigation"></nav>
 
-    <div>
-        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-        <div id="paypal-button-container"></div>
-        <script th:inline="javascript">
-
-            // Render the PayPal button
-            paypal.Button.render({
-
-                // Set your environment
-
-                env: 'sandbox', // sandbox | production
-
-                // Specify the style of the button
-
-                style: {
-                    layout: 'vertical',  // horizontal | vertical
-                    size:   'medium',    // medium | large | responsive
-                    shape:  'rect',      // pill | rect
-                    color:  'gold'       // gold | blue | silver | black
-                },
-
-                // Specify allowed and disallowed funding sources
-                //
-                // Options:
-                // - paypal.FUNDING.CARD
-                // - paypal.FUNDING.CREDIT
-                // - paypal.FUNDING.ELV
-
-                funding: {
-                    allowed: [ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],
-                    disallowed: [ ]
-                },
-
-                // PayPal Client IDs - replace with your own
-                // Create a PayPal app: https://developer.paypal.com/developer/applications/create
-
-                client: {
-                    sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
-                    production: 'Ae38b-Uk-GtI40Ei5bmkwCfrFtzb70IeiYBRwF7kv2ZR72vSasB87Iz7UJr5PUOWis9GdqErB9-BhMY2'
-                },
-
-                payment: function(data, actions) {
-                    return actions.payment.create({
-                        payment: {
-                            transactions: [
-                                {
-                                    amount: { total: '0.01', currency: 'USD' }
-                                }
-                            ]
-                        }
-                    });
-                },
-
-                onAuthorize: function(data, actions) {
-                    return actions.payment.execute().then(function() {
-                        window.alert('Payment Complete!');
-                    });
-                }
-
-            }, '#paypal-button-container');
-
-        </script>
-    </div>
+    <h2>Buy Strings!</h2>
+    <table>
+        <tr>
+            <td>Bass Guitar Strings</td>
+            <td>
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="6RNT8A4HBBJRE">
+                    <input type="image"
+                           src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif"
+                           border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif"
+                         width="1" height="1">
+                </form>
+            </td>
+        </tr>
+    </table>
 
 
 </body>

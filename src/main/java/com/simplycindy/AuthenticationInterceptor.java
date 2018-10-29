@@ -25,7 +25,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
         // Authentication white list; add all publicly visible pages here
         List<String> nonAuthPages = Arrays.asList("/login", "/register", "/product/display", "/home",
-                                                    "/product/aProduct");
+                                                    "/product/aProduct", "/email/contactForm");
 
         // Require sign-in for auth pages
         if ( nonAuthPages.contains(request.getRequestURI()) ) {

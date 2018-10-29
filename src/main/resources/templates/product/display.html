@@ -3,46 +3,45 @@
 <div id="main">
 <head th:replace="fragments :: head"></head>
 <body class="main-bg">
-    <h1 th:text="${title}">Default Title</h1>
 
     <nav th:replace="fragments :: navigation"></nav>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a th:each="category : ${categories}" th:href="'display?categoryId=' + ${category.id}" th:text="${category.name}"></a>
+    <div class="content">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a th:each="category : ${categories}" th:href="'display?categoryId=' + ${category.id}" th:text="${category.name}"></a>
 
-    </div>
-    <!-- Use any element to open the sidenav -->
-    <a class="navbutton" onclick="openNav()">Shop by Category</a>
+        </div>
+        <!-- Use any element to open the sidenav -->
+        <a class="navbutton" onclick="openNav()">Shop by Category</a>
+        <div class="product-display" style="width:80%;margin:auto;">
 
-    <div class="product-display" style="width:80%;margin:auto;">
-
-        <div class="card-columns">
-            <div class="card" th:each="product : ${products}">
-                <a class="productcardlink" th:href="'aProduct?productId=' + ${product.id}">
-                    <img class="card-img-top" th:src="${product.image}" alt="Card image cap" />
-                    <div class="card-body">
-                        <h5 class="card-title product-title" th:text="${product.name}"></h5>
-                        <p class="card-text product-text" th:utext="'$' + ${#numbers.formatDecimal(product.price, 0,'DEFAULT', 2, 'DEFAULT')} + '&lt;br /&gt;' + ${product.description}"></p>
-                    </div>
-                </a>
+            <div class="card-columns">
+                <div class="card" th:each="product : ${products}">
+                    <a class="productcardlink" th:href="'aProduct?productId=' + ${product.id}">
+                        <img class="card-img-top" th:src="${product.image}" alt="Card image cap" />
+                        <div class="card-body">
+                            <h5 class="card-title product-title" th:text="${product.name}"></h5>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
+
+        <script>
+            /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+            }
+
+            /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+            }
+        </script>
     </div>
-
-    <script>
-        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
-
-        /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-        }
-    </script>
 </body>
 </div>
 </html>

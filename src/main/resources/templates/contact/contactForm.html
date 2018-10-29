@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="main-bg">
+    <nav th:replace="fragments :: navigation"></nav>
+
+    <p>For custom orders, questions, or concerns, please fill out this form.</p>
+
+    <form method="post" th:object="${email}" action = "/email/contactForm" enctype="multipart/form-data">
+        <div>
+            <label th:for="name">Name</label>
+            <input th:field="*{name}"/>
+            <span th:errors="*{name}"></span>
+        </div>
+        <div>
+            <label th:for="email">Email</label>
+            <input th:field="*{email}"/>
+            <span th:errors="*{email}"></span>
+        </div>
+        <div>
+            <label th:for="message">Message</label>
+            <textarea th:field="*{message}"/>
+            <span th:errors="*{message}"></span>
+        </div>
+        <div>
+            <label th:for="image">Upload Image</label>
+            <input th:field="*{image}" type="file"/>
+            <span th:errors="*{image}"/><br/><br/>
+        </div>
+
+        <input type="submit" value="Submit" />
+    </form>
+
+</body>
+</html>
