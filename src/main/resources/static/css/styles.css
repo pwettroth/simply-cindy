@@ -26,8 +26,9 @@
     grid-column-end: 3;
 }
 
-.dropdown {
+.cart, .dropdown {
    float: right;
+   color: black;
 }
 
 .dropdown:hover {
@@ -40,6 +41,7 @@
 }
 
 .dropdown-toggle::after {
+    color: black;
     display:none;
 }
 
