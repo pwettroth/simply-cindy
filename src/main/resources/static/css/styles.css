@@ -13,16 +13,34 @@
 }
 
 .header-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  grid-gap: 10px;
-  border: 5px white;
-  border-style: dashed none;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    border: 5px white;
+    border-style: dashed none;
 }
 
 .item1 {
-  grid-column-start: 1;
-  grid-column-end: 2;
+    padding-left: 50px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.dropdown {
+   float: right;
+}
+
+.dropdown:hover {
+    color: #FFD700;
+}
+
+.dropdown-menu {
+    border: none;
+    background-color: rgba(255, 255, 128, .5); /* opaque pale yellow*/
+}
+
+.dropdown-toggle::after {
+    display:none;
 }
 
 h1 {
@@ -68,6 +86,7 @@ body {
 }
 
 .navBar a {
+    padding: 10px;
     text-decoration: none;
     font-family: 'Clicker Script', cursive;
     font-size: 25px;
@@ -98,11 +117,6 @@ body {
 
 .categories {
     width: 50%;
-}
-
-.carousel {
-    width: 50%;
-    background-color: white !important;
 }
 
 .category, .card {

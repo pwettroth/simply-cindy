@@ -22,22 +22,27 @@
     <script type="text/javascript" th:src="@{/js/script.js}"></script>
 
     <div class="header-container">
-        <div class="item1">
-            <a class="navbutton" href="/login"><i class="fa fa-user-circle-o" /></a>
-        </div>
-        <div class="item2"><h1>Simply Cindy</h1></div>
+        <div class="item1"><h1>Simply Cindy</h1></div>
     </div>
 
 </head>
 <body>
+
 <nav th:fragment="navigation" id="stickyBar" class="navBar">
     <a class="navbutton" href="/home">Home</a>
     <a class="navbutton" href="/product/display">Shop</a>
     <a class="navbutton" href="/orders/viewCart">View Cart</a>
     <a class="navbutton" href="/email/contactForm">Contact</a>
     <a class="navbutton" href="/home/adminHome">Admin View</a>
-    <a class="navbutton" href="/login">Login</a>
-    <a class="navbutton" href="/logout">Logout</a>
+    <div class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle-o" /></a>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li><a class="navbutton" href="/login">Login</a></li>
+            <li><a class="navbutton" href="/logout">Logout</a></li>
+            <li><a class="navbutton" href="/register">Register</a></li>
+        </ul>
+    </div>
+
 
     <script>
     window.onscroll = function() {myFunction()};
